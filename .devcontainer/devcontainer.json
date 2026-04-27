@@ -1,11 +1,20 @@
 {
-  "name": "GameService Full Stack",
-  "dockerComposeFile": "../docker-compose.yml",
-  "service": "game-service",
-  "workspaceFolder": "/workspaces/GameService",
-  "shutdownAction": "stopCompose",
+  "name": "Infra Full Stack",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "25",
+      "installMaven": "true",
+      "installGradle": "false"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "workspaceFolder": "/workspaces/infra",
   "forwardPorts": [8080, 8081, 8082, 4566, 27017, 6379],
-  "postCreateCommand": "echo 'Dev container ready'",
+  "postCreateCommand": "echo 'Dev container ready. Run: docker compose up -d --build'",
   "customizations": {
     "vscode": {
       "extensions": [

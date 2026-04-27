@@ -27,7 +27,7 @@ public class JwtServiceImpl implements JwtService {
 		Date now = new Date();
 		Date exp = new Date(now.getTime() + expirationMs);
 		return Jwts.builder().setSubject(username).setIssuedAt(now).setExpiration(exp).claim("sessionId", sessionId)
-				.claim("role", role).claim("contractService", contractService).signWith(key, SignatureAlgorithm.HS256).compact();
+				.claim("role", role).claim("contractService", contractService).claim("channel", "MOBILE").signWith(key, SignatureAlgorithm.HS256).compact();
 	}
 
 	@Override

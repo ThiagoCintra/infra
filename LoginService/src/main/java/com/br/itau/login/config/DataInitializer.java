@@ -32,7 +32,7 @@ public class DataInitializer implements CommandLineRunner {
             user.setPassword(passwordEncoder.encode("231299"));
             user.setNomeCompleto("Thiago");
             user.setEmail(null);
-            user.setContractService(Boolean.FALSE);
+            user.setContractService(Boolean.TRUE);
             user.setRole(Role.USER);
             userRepository.save(user);
             System.out.println("Inserted initial user 'Thiago'");

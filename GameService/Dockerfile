@@ -1,14 +1,16 @@
 ## multi-stage build: build with maven then run on lightweight JRE
-FROM eclipse-temurin:25-jdk-alpine AS build
+FROM maven:3.9-eclipse-temurin-25 AS build
 WORKDIR /workspace/app
-COPY mvnw ./
-COPY .mvn .mvn
+COPY proxy-ca.pem /tmp/proxy-ca.pem
+RUN keytool -importcert -noprompt -trustcacerts \
+    -keystore /opt/java/openjdk/lib/security/cacerts \
+    -storepass changeit -file /tmp/proxy-ca.pem -alias proxy-ca
 COPY pom.xml ./
-RUN ./mvnw dependency:go-offline -q
+RUN mvn dependency:go-offline -q
 COPY src src
-RUN ./mvnw -DskipTests package -q
+RUN mvn -DskipTests package -q
 
-FROM eclipse-temurin:25-jdk-alpine
+FROM eclipse-temurin:25-jdk
 WORKDIR /app
 COPY --from=build /workspace/app/target/game-service-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8082

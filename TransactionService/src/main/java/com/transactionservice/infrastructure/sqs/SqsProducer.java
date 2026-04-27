@@ -74,9 +74,6 @@ public class SqsProducer {
                 String groupId = event.customerId();
                 builder.messageGroupId(groupId);
                 builder.messageDeduplicationId(event.eventId());
-            } else {
-                // use deduplication id when provided (helps idempotency if broker supports it)
-                builder.messageDeduplicationId(event.eventId());
             }
 
             SendMessageRequest request = builder.build();

@@ -53,8 +53,9 @@ services:
       - redis
       - localstack
     environment:
-      SPRING_REDIS_HOST: redis
+      SPRING_DATA_REDIS_HOST: redis
       WAIT_HOSTS: redis:6379
+      JAVA_TOOL_OPTIONS: "-Dspring.data.redis.host=redis -Dnetty.resolver.dns.useJdkResolver=true -Djava.net.preferIPv4Stack=true"
     restart: unless-stopped
 
   transaction-service:
@@ -71,6 +72,12 @@ services:
     environment:
       - WAIT_HOSTS=localstack:4566,mongo:27017
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+      - LOGIN_SERVICE_URL=http://login-service:8081/api/v1/auth
+      - AWS_ENDPOINT=http://localstack:4566
+      - AWS_REGION=us-east-1
+      - SQS_QUEUE_URL=http://localstack:4566/000000000000/transactions
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
 
     restart: unless-stopped
 
@@ -91,6 +98,7 @@ services:
       - AWS_REGION=us-east-1
       - SQS_QUEUE_URL=http://localstack:4566/000000000000/transactions
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/game_db
+      - JAVA_TOOL_OPTIONS=-Dspring.data.mongodb.uri=mongodb://mongo:27017/game_db -Daws.sqs.endpoint=http://localstack:4566 -Daws.sqs.queue-url=http://localstack:4566/000000000000/transactions
       - WAIT_HOSTS=localstack:4566,mongo:27017
     restart: unless-stopped
 

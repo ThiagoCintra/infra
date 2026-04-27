@@ -11,10 +11,10 @@ server:
   port: 8080
 
 jwt:
-  secret: ${JWT_SECRET:bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbjEyMzQ1Njc4OTA=}
+  secret: ${JWT_SECRET:Q2hhbmdlVGhpc1NlY3JldEtleUZvclByb2RVc2VBdExlYXN0MzJDaGFycyE=}
 
 login-service:
-  base-url: ${LOGIN_SERVICE_URL:http://localhost:8081}
+  base-url: ${LOGIN_SERVICE_URL:http://localhost:8081/api/v1/auth}
   timeout-millis: ${LOGIN_SERVICE_TIMEOUT_MILLIS:2000}
 
 aws:

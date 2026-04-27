@@ -10,3 +10,4 @@ target/
 .project
 .DS_Store
 *.log
+proxy-ca.pem

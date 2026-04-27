@@ -3,7 +3,7 @@ package com.br.itau.login.service;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
@@ -37,12 +37,12 @@ public class LoginRateLimiter {
             "return c",
             Long.class);
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final StringRedisTemplate redisTemplate;
     private final int maxRequests;
     private final long windowSeconds;
 
     public LoginRateLimiter(
-            RedisTemplate<String, Object> redisTemplate,
+            StringRedisTemplate redisTemplate,
             @Value("${rate-limit.max-requests:5}") int maxRequests,
             @Value("${rate-limit.window-seconds:60}") long windowSeconds) {
         this.redisTemplate = redisTemplate;

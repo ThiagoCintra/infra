@@ -7,9 +7,7 @@ spring:
       repositories:
         bootstrap-mode: default
     mongodb:
-      host: ${SPRING_DATA_MONGODB_HOST:localhost}
-      port: 27017
-      database: game_db
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/game_db}
       auto-index-creation: false
   main:
     web-application-type: servlet
