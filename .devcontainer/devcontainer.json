@@ -1,7 +1,7 @@
 {
   "name": "GameService Full Stack",
   "dockerComposeFile": "../docker-compose.yml",
-  "service": "game-service",
+  "service": "infra-service",
   "workspaceFolder": "/workspaces/GameService",
   "shutdownAction": "stopCompose",
   "forwardPorts": [8080, 8081, 8082, 4566, 27017, 6379],
