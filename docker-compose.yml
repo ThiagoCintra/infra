@@ -51,8 +51,10 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - JWT_SECRET=bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbjEyMzQ1Njc4OTA=
-      - JWT_EXPIRATION=86400000
+    - JWT_SECRET=bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbjEyMzQ1Njc4OTA=
+    - JWT_EXPIRATION=86400000
+    - REDIS_HOST=redis
+    - REDIS_PORT=6379
 
   transaction-service:
     build: ./TransactionService
@@ -71,6 +73,7 @@ services:
       - JWT_EXPIRATION=86400000
       - LOGIN_SERVICE_URL=http://login-service:8081
       - LOGIN_SERVICE_TIMEOUT_MILLIS=2000
+      - SQS_QUEUE_URL=http://localstack:4566/000000000000/transactions.fifo
 
   game-service:
     build: ./GameService
@@ -85,7 +88,7 @@ services:
     environment:
       - AWS_ENDPOINT=http://localstack:4566
       - AWS_REGION=us-east-1
-      - SQS_QUEUE_URL=http://localstack:4566/000000000000/transactions
+      - SQS_QUEUE_URL=http://localstack:4566/000000000000/transactions.fifo
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/game_db
       - JWT_SECRET=bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbjEyMzQ1Njc4OTA= # ← CORRIGIDO
       - JWT_EXPIRATION=86400000
